@@ -4,12 +4,16 @@ Game::Game() : m_player(std::make_shared<Player>()),
                m_graph(std::make_shared<Graph<Shape>>()),
                m_window(std::make_shared<Window>(windowWidth, windowHeight))
 {
-    generateBoard();
 }
 
 void Game::run()
 {
-    while (m_player->areaControlled() < 0.50)
+    generateBoard();
+
+    // randomize the colors of the hexagons
+    m_graph->randomizeColors();
+
+    while (m_window->isOpen() && m_player->areaControlled() < 0.50)
     {
         m_window->run(m_graph, m_player);
     }
@@ -21,7 +25,7 @@ Game::~Game()
 
 void Game::generateBoard()
 {
-    // create hexagons and store their shared pointers in a 2D vector
+    // 2d vector used
     std::vector<std::vector<std::shared_ptr<Shape>>> hexagons(graphHeight, std::vector<std::shared_ptr<Shape>>(graphWidth));
     int offset;
 
@@ -36,7 +40,7 @@ void Game::generateBoard()
             i % 2 == 0 ? offset = 0 : offset = hexagon->getWidth() * -0.6;
             hexagon->setPosition(sf::Vector2f(hexagon->getWidth() * j + offset, 0.75 * hexagon->getHeight() * i ));
             hexagons[i][j] = hexagon;
-            m_graph->addEdge(hexagon); // Add the hexagon to the graph
+            m_graph->addEdge(hexagon); // add the hexagon to the graph
         }
         if (i % 2 == 1)
         {
@@ -52,8 +56,9 @@ void Game::generateBoard()
     // link each hexagon with its neighbours
     link(hexagons);
 
-    // randomize the colors of the hexagons
-    m_graph->randomizeColors();
+    // starting points for player and computer
+    m_player->setStartingPoint(hexagons[graphHeight - 1][0]);
+    // m_computer->setStartingPoint(hexagons[0][graphWidth-2];
 }
 
 void Game::link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons)
@@ -72,18 +77,26 @@ void Game::link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons)
             }
 
             // connect top-left & bottom-right
-            if ((i > 0 && i % 2 == 0) ||
-                (i > 0 && j > 0 && i % 2 == 1))
+            if (i > 0 && i % 2 == 0)           // even rows
             {
                 auto topLeftNeighbor = hexagons[i - 1][j];
+                    m_graph->addNeighbour(hexagon, topLeftNeighbor);
+            }
+            if (i > 0 && j > 0 && i % 2 == 1)  // odd rows
+            {
+                auto topLeftNeighbor = hexagons[i - 1][j - 1];
                 m_graph->addNeighbour(hexagon, topLeftNeighbor);
             }
 
-            // connect top-right & bottom-left 
-            if ((i > 0 && j < graphWidth - 2) ||
-                (i > 0 && j < graphWidth - 1 && i % 2 == 0))
+            // connect top-right & bottom-left
+            if (i > 0 && j < graphWidth - 1 && i % 2 == 0)  // even rows
             {
                 auto topRightNeighbor = hexagons[i - 1][j + 1];
+                m_graph->addNeighbour(hexagon, topRightNeighbor);
+            }
+            if (i > 0 && j < graphWidth - 2)                // odd rows
+            {
+                auto topRightNeighbor = hexagons[i - 1][j];
                 m_graph->addNeighbour(hexagon, topRightNeighbor);
             }
         }

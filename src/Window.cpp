@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window(int width, int height) :
+Window::Window(float width, float height) :
     m_window(sf::VideoMode(width, height), "6 Colors", sf::Style::Titlebar | sf::Style::Close),
     m_colors({sf::Color::Red,
               sf::Color(255, 165, 0), // Orange
@@ -31,12 +31,13 @@ Window::Window(int width, int height) :
 
 void Window::run(std::shared_ptr<Graph<Shape>> graph, std::shared_ptr<Player> player)
 {
-    while (m_window.isOpen())
-    {
-        processEvents(player, graph);
-        update();
-        render(graph);
-    }
+    processEvents(player, graph);
+    render(graph);
+}
+
+bool Window::isOpen()
+{
+    return m_window.isOpen() ? true : false;
 }
 
 void Window::processEvents(std::shared_ptr<Player> player,
@@ -66,11 +67,6 @@ void Window::handleMouseClick(int x, int y, std::shared_ptr<Player> player,
             break;
         }
     }
-}
-
-void Window::update()
-{
-    // Update any necessary logic here
 }
 
 void Window::render(std::shared_ptr<Graph<Shape>> graph)

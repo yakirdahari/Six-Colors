@@ -4,30 +4,35 @@ Player::Player() : control(0)
 {
 }
 
-void Player::pickColor(sf::Color color, std::shared_ptr<Graph<Shape>> graph)
+void Player::pickColor(const sf::Color color, std::shared_ptr<Graph<Shape>> graph)
 {
-	if (m_paintedEdges.empty())
-	{
-		m_paintedEdges.push_back(graph->getRoot());
-	}
+	// get stuff ready for DFS
+	startingPoint->setColor(color);
+	graph->resetVisited();
+	
+	// paint owned edges
 	for (auto& edge : m_paintedEdges)
 	{
 		edge->setColor(color);
 	}
-	//graph->getEdges()[0]->setColor(color);
-	graph->resetVisited();
 
 	// use DFS to get all neighbours with identical color
-	m_paintedEdges = graph->playerDFS(graph->getRoot(), color);
-	
+	m_paintedEdges = graph->DFS(startingPoint, color);
+
 	// update control
-	setControl((float)m_paintedEdges.size() / (float)graph->getEdges().size());
+	float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());
+	setControl(newControl);
 	std::cout << "player: " << areaControlled() << std::endl;
 }
 
 void Player::setControl(float amount)
 {
 	control = amount;
+}
+
+void Player::setStartingPoint(std::shared_ptr<Shape> edge)
+{
+	startingPoint = edge;
 }
 
 float Player::areaControlled()

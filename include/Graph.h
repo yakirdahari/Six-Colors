@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <memory>
 #include <SFML/Graphics/Color.hpp>
+#include <chrono>
+#include <thread>
 
 template <typename T>
 class Graph {
@@ -60,6 +62,12 @@ public:
         return edgesVector;
     }
 
+    // set a pointer of the graph's root
+    void setRoot(std::shared_ptr<T> root)
+    {
+        m_root = root;
+    }
+
     // get a pointer of the graph's root
     std::shared_ptr<T> getRoot()
     {
@@ -69,41 +77,47 @@ public:
     // randomize the colors of every edge in the graph
     void randomizeColors()
     {
-        for (auto& edge : m_edges)
+        for (int i = 0; i < 10; i++)
         {
-            edge.first->randomColor();
+            for (auto& edge : m_edges)
+            {
+                edge.first->randomColor();
+            }
         }
     }
 
     // need a clean visited map for every DFS run
     void resetVisited()
     {
-        for (auto& edge : m_visited)
+        for (const auto& node : m_edges)
         {
-            edge.second = false;
+            m_visited[node.first] = false;
         }
     }
 
-    std::vector<std::shared_ptr<T>> playerDFS(const std::shared_ptr<T>& v, const sf::Color& targetColor)
+    std::unordered_set<std::shared_ptr<T>> DFS(const std::shared_ptr<T>& v, const sf::Color& targetColor)
     {
-        std::vector<std::shared_ptr<T>> neighbours;
+        std::unordered_set<std::shared_ptr<T>> neighbours;
 
-        m_visited[v] = true;
+        // check if already visited this edge
+        if (m_visited[v]) {
+            return neighbours;  // Node already visited, return empty vector
+        }
 
-        // check if the current T has the target color
+        // check if this edge has the target color
         if (v->getColor() == targetColor) {
-            neighbours.push_back(v);
+            neighbours.insert(v);
         }
         else
         {
-            return neighbours;   // return empty vector if color doesn't match
+            return neighbours;
         }
 
+        m_visited[v] = true;
+
         for (const auto& edge : m_edges[v]) {
-            if (!m_visited[edge]) {
-                auto edgeNeighbours = playerDFS(edge, targetColor);
-                neighbours.insert(neighbours.end(), edgeNeighbours.begin(), edgeNeighbours.end());
-            }
+            auto edgeNeighbours = DFS(edge, targetColor);
+            neighbours.insert(edgeNeighbours.begin(), edgeNeighbours.end());
         }
 
         return neighbours;
