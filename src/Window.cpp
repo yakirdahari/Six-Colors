@@ -2,17 +2,28 @@
 
 Window::Window(const float& width, const float& height) :
     m_window(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height),
-                         "6 Colors", sf::Style::Titlebar | sf::Style::Close))
+                        "6 Colors", sf::Style::Titlebar | sf::Style::Close)),
+    waitingForPlayer(true)
 {
+    initTextures();
     initButtons();
     initInfo();
 }
 
-void Window::run(std::shared_ptr<Graph<Shape>> graph, std::shared_ptr<Player> player)
+void Window::run(std::shared_ptr<Graph<Shape>> graph, std::shared_ptr<Player> player,
+                 std::shared_ptr<Computer> computer)
 {
-    processEvents(player, graph);
-    update(player);
+    waitingForPlayer = true;
+
+    // we don't put those in the loop to improve performance
+    update(player, computer);
     render(graph);
+
+    // wait for player to choose a color
+    while (m_window->isOpen() && waitingForPlayer)
+    {
+        processEvents(player, graph, computer);
+    }
 }
 
 void Window::initButtons()
@@ -30,18 +41,54 @@ void Window::initButtons()
     }
 }
 
+void Window::initTextures()
+{
+    if (!m_disabledButtonTexture1.loadFromFile("X.png"))
+    {
+        throw std::exception("failed to load X.png");
+    }
+    m_disabledButton1.setTexture(m_disabledButtonTexture1);
+    m_disabledButton1.scale(0.6f, 0.6f);
+    m_disabledButton1.setOrigin(m_disabledButton1.getLocalBounds().width * (-0.17f), m_disabledButton1.getLocalBounds().height * (-0.17f));
+
+    if (!m_disabledButtonTexture2.loadFromFile("X.png"))
+    {
+        throw std::exception("failed to load X.png");
+    }
+    m_disabledButton2.setTexture(m_disabledButtonTexture2);
+    m_disabledButton2.scale(0.6f, 0.6f);
+    m_disabledButton2.setOrigin(m_disabledButton2.getLocalBounds().width * (-0.17f), m_disabledButton2.getLocalBounds().height * (-0.17f));
+}
+
+void Window::clearButtons()
+{
+    m_disabledButton1.setPosition(1000, 1000);
+    m_disabledButton2.setPosition(1000, 1000);
+}
+
 void Window::initInfo()
 {
-    m_font.loadFromFile("Buttons_Font.otf");
+    if (!m_font.loadFromFile("Font.otf"))
+    {
+        throw std::exception("failed to load font");
+    }
 
     // text configuration
     int textSize = 16;
 
+    // player
     m_playerControl.setString("");
     m_playerControl.setFillColor(sf::Color::White);
     m_playerControl.setCharacterSize(textSize);
     m_playerControl.setPosition((m_window->getSize().x * 0.04), m_window->getSize().y * 0.925);
     m_playerControl.setFont(m_font);
+
+    // computer
+    m_computerControl.setString("");
+    m_computerControl.setFillColor(sf::Color::White);
+    m_computerControl.setCharacterSize(textSize);
+    m_computerControl.setPosition((m_window->getSize().x * 0.775), m_window->getSize().y * 0.925);
+    m_computerControl.setFont(m_font);
 }
 
 bool Window::isOpen()
@@ -50,7 +97,8 @@ bool Window::isOpen()
 }
 
 void Window::processEvents(std::shared_ptr<Player> player,
-                           std::shared_ptr<Graph<Shape>> graph)
+                           std::shared_ptr<Graph<Shape>> graph,
+                           std::shared_ptr<Computer> computer)
 {
     sf::Event event;
     while (m_window->pollEvent(event))
@@ -62,25 +110,47 @@ void Window::processEvents(std::shared_ptr<Player> player,
         {
             int x = event.mouseButton.x;
             int y = event.mouseButton.y;
-            handleMouseClick(x, y, player, graph);
+            handleMouseClick(x, y, player, graph, computer);
         }
     }
 }
 
 void Window::handleMouseClick(int x, int y, std::shared_ptr<Player> player,
-                              std::shared_ptr<Graph<Shape>> graph)
+                              std::shared_ptr<Graph<Shape>> graph,
+                              std::shared_ptr<Computer> computer)
 {
     for (const auto& button : m_colorButtons) {
-        if (button->getGlobalBounds().contains(x, y)) {
-            player->pickColor(button->getFillColor(), graph); // Call pickColor on the player with the selected color
+        if (button->getGlobalBounds().contains(x, y) &&
+            button->getFillColor() != player->chosenColor() &&
+            button->getFillColor() != computer->chosenColor()) {
+            player->setChosenColor(button->getFillColor());
+            player->pickColor(button->getFillColor(), graph);
+            waitingForPlayer = false;
             break;
         }
     }
 }
 
-void Window::update(std::shared_ptr<Player> player)
+void Window::update(std::shared_ptr<Player> player, std::shared_ptr<Computer> computer)
 {
     m_playerControl.setString(std::to_string(player->areaControlled()));
+    m_computerControl.setString(std::to_string(computer->areaControlled()));
+
+    // delete existing X from disabled buttons
+    clearButtons();
+
+    // add X to 1st disabled button
+    for (const auto& button : m_colorButtons)
+    {
+        if (button->getFillColor() == player->chosenColor())
+        {
+            m_disabledButton1.setPosition(button->getPosition());
+        }
+        if (button->getFillColor() == computer->chosenColor())
+        {
+            m_disabledButton2.setPosition(button->getPosition());
+        }
+    }
 }
 
 void Window::render(std::shared_ptr<Graph<Shape>> graph)
@@ -100,6 +170,9 @@ void Window::render(std::shared_ptr<Graph<Shape>> graph)
 
     // draw info
     m_window->draw(m_playerControl);
+    m_window->draw(m_computerControl);
+    m_window->draw(m_disabledButton1);
+    m_window->draw(m_disabledButton2);
 
     m_window->display();
 }

@@ -11,13 +11,23 @@ void Game::run()
 {
     generateBoard();
 
-    // randomize the colors of the hexagons
-    m_graph->randomizeColors();
-
-    while (m_window->isOpen() && m_player->areaControlled() < 0.50)
+    try
     {
-        m_window->run(m_graph, m_player);
+        while (m_window->isOpen() &&
+            (m_player->areaControlled() < 0.50 && m_computer->areaControlled() < 0.50))
+        {
+            // player's turn
+            m_window->run(m_graph, m_player, m_computer);
+
+            // computer's turn
+            m_computer->pickColor(m_player->chosenColor(), m_graph);
+        }
     }
+    catch (std::exception& e)
+    {
+        std::cout << "error: " << e.what() << std::endl;
+    }
+    
 }
 
 Game::~Game()
@@ -60,9 +70,13 @@ void Game::generateBoard()
     // link each hexagon with its neighbours
     link(hexagons);
 
+    // randomize the colors of the hexagons
+    m_graph->randomizeColors();
+
     // starting points for player and computer
     m_player->setStartingPoint(hexagons[graphHeight - 1][0]);
     m_computer->setStartingPoint(hexagons[0][graphWidth-2]);
+    m_computer->setChosenColor(hexagons[0][graphWidth - 2]->getColor());
 }
 
 void Game::link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons)
