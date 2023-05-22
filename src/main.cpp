@@ -2,6 +2,6 @@
 
 int main()
 {
-	auto game = Game();
+	auto game = Game(1);
 	game.run();
 }

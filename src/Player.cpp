@@ -1,13 +1,13 @@
 #include "Player.h"
 
-Player::Player() : control(0)
+Player::Player() : m_control(0)
 {
 }
 
 void Player::pickColor(const sf::Color color, std::shared_ptr<Graph<Shape>> graph)
 {
 	// get stuff ready for DFS
-	startingPoint->setColor(color);
+	m_startingPoint->setColor(color);
 	graph->resetVisited();
 	
 	// paint owned edges
@@ -17,24 +17,34 @@ void Player::pickColor(const sf::Color color, std::shared_ptr<Graph<Shape>> grap
 	}
 
 	// use DFS to get all neighbours with identical color
-	m_paintedEdges = graph->DFS(startingPoint, color);
+	m_paintedEdges = graph->DFS(m_startingPoint, color);
 
 	// update control
 	float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());
 	setControl(newControl);
 }
 
-void Player::setControl(float amount)
+void Player::setControl(const float& amount)
 {
-	control = amount;
+	m_control = amount;
 }
 
-void Player::setStartingPoint(std::shared_ptr<Shape> edge)
+void Player::setStartingPoint(const std::shared_ptr<Shape>& edge)
 {
-	startingPoint = edge;
+	m_startingPoint = edge;
+}
+
+void Player::setChosenColor(const sf::Color& color)
+{
+	m_currentColor = color;
 }
 
 float Player::areaControlled()
 {
-	return control;
+	return m_control;
+}
+
+sf::Color Player::chosenColor()
+{
+	return m_currentColor;
 }

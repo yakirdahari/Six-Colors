@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include "Player.h"
+#include "Computer.h"
 #include "Window.h"
 
 class Game
@@ -16,7 +17,7 @@ public:
    |----------- CONSTRUCTOR ------------|
 	\*--------------------------------*/
 
-	Game();
+	Game(const int& difficulty);
 
 	/*--------------------------------*\
    |------------ FUNCTIONS -------------|
@@ -47,9 +48,9 @@ public:
 	~Game();
 
 private:
-	// Our world
 	std::shared_ptr<Window> m_window;
 	std::shared_ptr<Player> m_player;
+	std::shared_ptr<Computer> m_computer;
 	std::shared_ptr<Graph<Shape>> m_graph;
 
 	void generateBoard();	// create a graph by width and height
