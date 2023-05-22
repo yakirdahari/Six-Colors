@@ -31,14 +31,14 @@ public:
 
 	enum GraphSize
 	{
-		graphWidth = 50/*29*/,
-		graphHeight = 60/*35*/,
+		graphWidth = 55/*29*/,
+		graphHeight = 58/*35*/,
 	};
 
 	enum WindowSize
 	{
-		windowWidth = 700 /*402*/,
-		windowHeight = 720 /*428*/,
+		windowWidth = 730 /*402*/,
+		windowHeight = 700 /*428*/,
 	};
 
 	/*--------------------------------*\

@@ -23,9 +23,11 @@ private:
     std::vector<std::shared_ptr<Shape>> m_shapes;
     Colors m_colors{};
     bool waitingForPlayer;
+    sf::Text m_new;
 
     void initButtons();
     void initTextures();
+    void initNewButton();
     void clearButtons();
     void initInfo();
     void processEvents(std::shared_ptr<Player> player,

@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Menu.h"
 
 Window::Window(const float& width, const float& height) :
     m_window(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height),
@@ -8,6 +9,7 @@ Window::Window(const float& width, const float& height) :
     initTextures();
     initButtons();
     initInfo();
+    initNewButton();
 }
 
 void Window::run(std::shared_ptr<Graph<Shape>> graph, std::shared_ptr<Player> player,
@@ -34,7 +36,7 @@ void Window::initButtons()
 
     for (size_t i = 0; i < m_colors().size(); ++i) {
         auto button = std::make_shared<sf::RectangleShape>(sf::Vector2f(buttonWidth, buttonHeight));
-        button->setPosition((m_window->getSize().x / 3.8) + i * buttonWidth * 1.3, m_window->getSize().y - buttonHeight * 1.4);
+        button->setPosition((m_window->getSize().x / 3.8) + i * buttonWidth * 1.3, m_window->getSize().y - buttonHeight * 1.9);
         button->setFillColor(m_colors[i]);
 
         m_colorButtons.push_back(button);
@@ -68,27 +70,38 @@ void Window::clearButtons()
 
 void Window::initInfo()
 {
-    if (!m_font.loadFromFile("Font.otf"))
+    if (!m_font.loadFromFile("Buttons_Font.ttf"))
     {
         throw std::exception("failed to load font");
     }
 
     // text configuration
-    int textSize = 16;
+    int textSize = 18;
 
     // player
     m_playerControl.setString("");
     m_playerControl.setFillColor(sf::Color::White);
     m_playerControl.setCharacterSize(textSize);
-    m_playerControl.setPosition((m_window->getSize().x * 0.04), m_window->getSize().y * 0.925);
+    m_playerControl.setPosition((m_window->getSize().x * 0.06), m_window->getSize().y * 0.935);
     m_playerControl.setFont(m_font);
 
     // computer
     m_computerControl.setString("");
     m_computerControl.setFillColor(sf::Color::White);
     m_computerControl.setCharacterSize(textSize);
-    m_computerControl.setPosition((m_window->getSize().x * 0.775), m_window->getSize().y * 0.925);
+    m_computerControl.setPosition((m_window->getSize().x * 0.79), m_window->getSize().y * 0.935);
     m_computerControl.setFont(m_font);
+}
+
+void Window::initNewButton()
+{
+    m_new.setString("NEW");
+    m_new.setFont(m_font);
+    m_new.setCharacterSize(34);
+    m_new.setFillColor(sf::Color::White);
+    m_new.setOutlineColor(sf::Color::Black);
+    m_new.setOutlineThickness(4);
+    m_new.setPosition((m_window->getSize().x * 0.6), m_window->getSize().y * 0.918);
 }
 
 bool Window::isOpen()
@@ -101,6 +114,9 @@ void Window::processEvents(std::shared_ptr<Player> player,
                            std::shared_ptr<Computer> computer)
 {
     sf::Event event;
+
+    sf::Vector2f mousePos;
+
     while (m_window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
@@ -112,7 +128,29 @@ void Window::processEvents(std::shared_ptr<Player> player,
             int y = event.mouseButton.y;
             handleMouseClick(x, y, player, graph, computer);
         }
+
+        mousePos.x = (float)(sf::Mouse::getPosition(*m_window).x);
+        mousePos.y = (float)(sf::Mouse::getPosition(*m_window).y);
+
+        if (m_new.getGlobalBounds().contains(mousePos))
+        {
+            m_new.setCharacterSize(50);
+            m_new.setOutlineThickness(3);
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                m_window->close();
+                auto m = Menu();
+                m.run();
+            }
+        }
+        else
+        {
+            m_new.setCharacterSize(34);
+            m_new.setOutlineThickness(0);
+        }
     }
+
+
 }
 
 void Window::handleMouseClick(int x, int y, std::shared_ptr<Player> player,
@@ -173,6 +211,7 @@ void Window::render(std::shared_ptr<Graph<Shape>> graph)
     m_window->draw(m_computerControl);
     m_window->draw(m_disabledButton1);
     m_window->draw(m_disabledButton2);
+    m_window->draw(m_new);
 
     m_window->display();
 }

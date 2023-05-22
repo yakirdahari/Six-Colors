@@ -3,8 +3,8 @@
 
 
 Menu::Menu()
-	: m_windowWidth(1440), m_windowHeight(900),
-	m_window(sf::VideoMode(700, 720), "6 Colors", sf::Style::Titlebar | sf::Style::Close)
+	: m_windowWidth(730), m_windowHeight(700),
+	m_window(sf::VideoMode(730, 700), "6 Colors", sf::Style::Titlebar | sf::Style::Close)
 {
 	initTitle();
 	initButtons();
@@ -30,7 +30,7 @@ void Menu::run()
 
 void Menu::draw()
 {
-	m_window.clear(sf::Color::Black);
+	m_window.clear(sf::Color(130, 130, 130));
 
 	// Draw the screen
 	m_window.draw(title);
@@ -57,37 +57,35 @@ void Menu::updateEvents()
 		case sf::Event::KeyReleased:
 			if (event.key.code == sf::Keyboard::Escape)
 			{
-				m_window.clear(sf::Color::Cyan);
-				m_window.display();
-
+				m_window.close();
 			}
 		}
 
 
 		if (easy.getGlobalBounds().contains(mousePos))
 		{
-			easy.setCharacterSize(90);
-			easy.setOutlineThickness(4);
-			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 400 - 15);
+			easy.setCharacterSize(65);
+			easy.setOutlineThickness(6);
+			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 270 - 10);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				m_window.clear(sf::Color::Black);
+				m_window.close();
 				auto g = Game(1);
 				g.run();
 			}
 		}
 		else
 		{
-			easy.setCharacterSize(70);
-			easy.setOutlineThickness(0);
-			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 400);
+			easy.setCharacterSize(55);
+			easy.setOutlineThickness(3);
+			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 270);
 		}
 
 		if (hard.getGlobalBounds().contains(mousePos))
 		{
-			hard.setCharacterSize(90);
-			hard.setOutlineThickness(4);
-			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 550 - 15);
+			hard.setCharacterSize(65);
+			hard.setOutlineThickness(6);
+			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 400 - 10);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				//m_window.close();
@@ -98,16 +96,16 @@ void Menu::updateEvents()
 		}
 		else
 		{
-			hard.setCharacterSize(70);
-			hard.setOutlineThickness(0);
-			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 550);
+			hard.setCharacterSize(55);
+			hard.setOutlineThickness(3);
+			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 400);
 		}
 
 		if (expert.getGlobalBounds().contains(mousePos))
 		{
-			expert.setCharacterSize(90);
-			expert.setOutlineThickness(4);
-			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 700 - 15);
+			expert.setCharacterSize(65);
+			expert.setOutlineThickness(6);
+			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 530 - 10);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				m_window.close();
@@ -115,9 +113,9 @@ void Menu::updateEvents()
 		}
 		else
 		{
-			expert.setCharacterSize(70);
-			expert.setOutlineThickness(0);
-			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 700);
+			expert.setCharacterSize(55);
+			expert.setOutlineThickness(3);
+			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 530);
 		}
 	}
 }
@@ -125,15 +123,15 @@ void Menu::updateEvents()
 
 void Menu::initTitle()
 {
-	//titleFont.loadFromFile("font7.TTF");
 	titleFont.loadFromFile("Title_Font.TTF");
 	title.setString("6 COLORS");
 	title.setFont(titleFont);
-	title.setCharacterSize(280);
-	title.setFillColor(sf::Color(0, 183, 183));
-	title.setOutlineColor(sf::Color::White);
-	title.setOutlineThickness(5);
-	title.setPosition(((m_windowWidth / 2.f) - (title.getGlobalBounds().width / 2.f)), 30);
+	title.setCharacterSize(150);
+	//title.setFillColor(sf::Color(0, 183, 183));
+	title.setFillColor(sf::Color::White);
+	title.setOutlineColor(sf::Color::Black);
+	title.setOutlineThickness(7);
+	title.setPosition(((m_windowWidth / 2.f) - (title.getGlobalBounds().width / 2.f)), 40);
 }
 
 
@@ -144,26 +142,31 @@ void Menu::initButtons()
 	// easy
 	easy.setString("EASY");
 	easy.setFont(buttonsFont);
-	easy.setFillColor(sf::Color(244, 189, 0));
-	easy.setOutlineColor(sf::Color::White);
-	easy.setCharacterSize(70);
-	easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 400);
+	easy.setFillColor(sf::Color::Yellow);
+	//easy.setFillColor(sf::Color(244, 189, 0));
+	easy.setOutlineColor(sf::Color::Black);
+	easy.setOutlineThickness(3);
+	easy.setCharacterSize(55);
+	easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 270);
 
 	// hard
 	hard.setString("HARD");
 	hard.setFont(buttonsFont);
-	hard.setFillColor(sf::Color(255, 66, 128));
-	hard.setOutlineColor(sf::Color::White);
-	hard.setCharacterSize(70);
-	hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 550);
+	hard.setFillColor(sf::Color(255, 150, 22));
+	//hard.setFillColor(sf::Color(255, 66, 128));
+	hard.setOutlineColor(sf::Color::Black);
+	hard.setOutlineThickness(3);
+	hard.setCharacterSize(55);
+	hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 400);
 
 	// expert
 	expert.setString("EXPERT");
 	expert.setFont(buttonsFont);
 	expert.setFillColor(sf::Color(170, 0, 170));
-	expert.setOutlineColor(sf::Color::White);
-	expert.setCharacterSize(70);
-	expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 700);
+	expert.setOutlineColor(sf::Color::Black);
+	expert.setOutlineThickness(3);
+	expert.setCharacterSize(55);
+	expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 530);
 }
 
 
