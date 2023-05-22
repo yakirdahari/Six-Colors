@@ -69,21 +69,18 @@ void Game::generateBoard()
     // link each hexagon with its neighbours
     link(hexagons);
 
-    // randomize the colors of the hexagons
-    m_graph->randomizeColors();
+    // randomize colors till the color of player and computer don't match
+    while (hexagons[graphHeight - 1][0]->getColor() == hexagons[0][graphWidth - 2]->getColor())
+    {
+        m_graph->randomizeColors();
+    }
 
     // starting points for player and computer
     m_player->setStartingPoint(hexagons[graphHeight - 1][0]);
-    if (graphHeight % 2 == 1)
-    {
-        m_computer->setStartingPoint(hexagons[0][graphWidth -2]);
-        m_computer->setChosenColor(hexagons[0][graphWidth -2]->getColor());
-    }
-    else
-    {
-        m_computer->setStartingPoint(hexagons[0][graphWidth - 1]);
-        m_computer->setChosenColor(hexagons[0][graphWidth - 1]->getColor());
-    }
+    m_player->setChosenColor(hexagons[graphHeight - 1][0]->getColor());
+    m_computer->setStartingPoint(hexagons[0][graphWidth - 2]);
+    m_computer->setChosenColor(hexagons[0][graphWidth - 2]->getColor());
+
     // initialise control of area
     float startingControl = 1.f / m_graph->getEdges().size();
     m_player->setControl(startingControl);

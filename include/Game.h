@@ -31,8 +31,8 @@ public:
 
 	enum GraphSize
 	{
-		graphWidth = 55/*29*/,
-		graphHeight = 58/*35*/,
+		graphWidth = 29/*29*/,
+		graphHeight = 35/*35*/,
 	};
 
 	enum WindowSize

@@ -96,29 +96,24 @@ public:
         std::unordered_set<std::shared_ptr<T>> neighbours;
 
         // check if already visited this edge
-        if (m_visited[v])
+        if (m_visited[v] || v->getColor() != targetColor)
         {
             return neighbours;  // Node already visited, return empty vector
         }
+        m_visited[v] = true;
 
         // check if this edge has the target color
         if (v->getColor() == targetColor)
         {
             neighbours.insert(v);
-        }
-        else
-        {
-            return neighbours;
-        }
 
-        m_visited[v] = true;
-
-        for (const auto& edge : m_edges[v])
-        {
-            auto edgeNeighbours = DFS(edge, targetColor);
-            neighbours.insert(edgeNeighbours.begin(), edgeNeighbours.end());
+            for (const auto& edge : m_edges[v])
+            {
+                auto edgeNeighbours = DFS(edge, targetColor);
+                neighbours.insert(edgeNeighbours.begin(), edgeNeighbours.end());
+                
+            }
         }
-
         return neighbours;
     }
 

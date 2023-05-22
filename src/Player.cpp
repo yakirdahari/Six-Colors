@@ -32,7 +32,6 @@ void Player::setControl(const float& amount)
 
 void Player::setStartingPoint(const std::shared_ptr<Shape>& edge)
 {
-	setChosenColor(edge->getColor());
 	m_startingPoint = edge;
 }
 
