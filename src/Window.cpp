@@ -36,7 +36,7 @@ void Window::initButtons()
 
     for (size_t i = 0; i < m_colors().size(); ++i) {
         auto button = std::make_shared<sf::RectangleShape>(sf::Vector2f(buttonWidth, buttonHeight));
-        button->setPosition((m_window->getSize().x / 3.8) + i * buttonWidth * 1.3, m_window->getSize().y - buttonHeight * 1.9);
+        button->setPosition((m_window->getSize().x / 3.8) + i * buttonWidth * 1.3, m_window->getSize().y - buttonHeight * 3.4);
         button->setFillColor(m_colors[i]);
 
         m_colorButtons.push_back(button);
@@ -82,14 +82,14 @@ void Window::initInfo()
     m_playerControl.setString("");
     m_playerControl.setFillColor(sf::Color::White);
     m_playerControl.setCharacterSize(textSize);
-    m_playerControl.setPosition((m_window->getSize().x * 0.06), m_window->getSize().y * 0.935);
+    m_playerControl.setPosition((m_window->getSize().x * 0.06), m_window->getSize().y * 0.925);
     m_playerControl.setFont(m_font);
 
     // computer
     m_computerControl.setString("");
     m_computerControl.setFillColor(sf::Color::White);
     m_computerControl.setCharacterSize(textSize);
-    m_computerControl.setPosition((m_window->getSize().x * 0.79), m_window->getSize().y * 0.935);
+    m_computerControl.setPosition((m_window->getSize().x * 0.7), m_window->getSize().y * 0.925);
     m_computerControl.setFont(m_font);
 }
 
@@ -100,8 +100,8 @@ void Window::initNewButton()
     m_new.setCharacterSize(34);
     m_new.setFillColor(sf::Color::White);
     m_new.setOutlineColor(sf::Color::Black);
-    m_new.setOutlineThickness(4);
-    m_new.setPosition((m_window->getSize().x * 0.6), m_window->getSize().y * 0.918);
+    //m_new.setOutlineThickness(4);
+    m_new.setPosition((m_window->getSize().x / 2.f) - (m_new.getGlobalBounds().width / 2.f), m_window->getSize().y * 0.9);
 }
 
 bool Window::isOpen()

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <cstdlib>
+#include <vector>
 #include "Colors.h"
 
 class Shape
@@ -26,6 +27,9 @@ public:
 	virtual const int& vertices();
 	virtual float getWidth() const;
 	virtual float getHeight() const;
+
+	void thick(std::vector<sf::CircleShape> m_groupOfHexagon);
+	void thin(std::vector<sf::CircleShape> m_groupOfHexagon);
 
 	/*--------------------------------*\
    |------------ DESTRUCTOR ------------|

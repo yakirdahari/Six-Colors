@@ -3,8 +3,8 @@
 
 
 Menu::Menu()
-	: m_windowWidth(730), m_windowHeight(700),
-	m_window(sf::VideoMode(730, 700), "6 Colors", sf::Style::Titlebar | sf::Style::Close)
+	: m_windowWidth(404), m_windowHeight(480),
+	m_window(sf::VideoMode(404, 480), "6 Colors", sf::Style::Titlebar | sf::Style::Close)
 {
 	initTitle();
 	initButtons();
@@ -64,9 +64,9 @@ void Menu::updateEvents()
 
 		if (easy.getGlobalBounds().contains(mousePos))
 		{
-			easy.setCharacterSize(65);
-			easy.setOutlineThickness(6);
-			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 270 - 10);
+			easy.setCharacterSize(47);
+			easy.setOutlineThickness(5);
+			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 180 - 7);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				m_window.close();
@@ -76,16 +76,16 @@ void Menu::updateEvents()
 		}
 		else
 		{
-			easy.setCharacterSize(55);
+			easy.setCharacterSize(40);
 			easy.setOutlineThickness(3);
-			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 270);
+			easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 180);
 		}
 
 		if (hard.getGlobalBounds().contains(mousePos))
 		{
-			hard.setCharacterSize(65);
-			hard.setOutlineThickness(6);
-			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 400 - 10);
+			hard.setCharacterSize(47);
+			hard.setOutlineThickness(5);
+			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 270 - 7);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				//m_window.close();
@@ -96,16 +96,16 @@ void Menu::updateEvents()
 		}
 		else
 		{
-			hard.setCharacterSize(55);
+			hard.setCharacterSize(40);
 			hard.setOutlineThickness(3);
-			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 400);
+			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 270);
 		}
 
 		if (expert.getGlobalBounds().contains(mousePos))
 		{
-			expert.setCharacterSize(65);
-			expert.setOutlineThickness(6);
-			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 530 - 10);
+			expert.setCharacterSize(47);
+			expert.setOutlineThickness(5);
+			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 360 - 7);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				m_window.close();
@@ -113,9 +113,9 @@ void Menu::updateEvents()
 		}
 		else
 		{
-			expert.setCharacterSize(55);
+			expert.setCharacterSize(40);
 			expert.setOutlineThickness(3);
-			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 530);
+			expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 360);
 		}
 	}
 }
@@ -126,7 +126,7 @@ void Menu::initTitle()
 	titleFont.loadFromFile("Title_Font.TTF");
 	title.setString("6 COLORS");
 	title.setFont(titleFont);
-	title.setCharacterSize(150);
+	title.setCharacterSize(80);
 	//title.setFillColor(sf::Color(0, 183, 183));
 	title.setFillColor(sf::Color::White);
 	title.setOutlineColor(sf::Color::Black);
@@ -146,8 +146,8 @@ void Menu::initButtons()
 	//easy.setFillColor(sf::Color(244, 189, 0));
 	easy.setOutlineColor(sf::Color::Black);
 	easy.setOutlineThickness(3);
-	easy.setCharacterSize(55);
-	easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 270);
+	easy.setCharacterSize(40);
+	easy.setPosition(((m_windowWidth / 2.f) - (easy.getGlobalBounds().width / 2.f)), 180);
 
 	// hard
 	hard.setString("HARD");
@@ -156,8 +156,8 @@ void Menu::initButtons()
 	//hard.setFillColor(sf::Color(255, 66, 128));
 	hard.setOutlineColor(sf::Color::Black);
 	hard.setOutlineThickness(3);
-	hard.setCharacterSize(55);
-	hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 400);
+	hard.setCharacterSize(40);
+	hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 270);
 
 	// expert
 	expert.setString("EXPERT");
@@ -165,8 +165,8 @@ void Menu::initButtons()
 	expert.setFillColor(sf::Color(170, 0, 170));
 	expert.setOutlineColor(sf::Color::Black);
 	expert.setOutlineThickness(3);
-	expert.setCharacterSize(55);
-	expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 530);
+	expert.setCharacterSize(40);
+	expert.setPosition(((m_windowWidth / 2.f) - (expert.getGlobalBounds().width / 2.f)), 360);
 }
 
 
