@@ -88,10 +88,9 @@ void Menu::updateEvents()
 			hard.setPosition(((m_windowWidth / 2.f) - (hard.getGlobalBounds().width / 2.f)), 270 - 7);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				//m_window.close();
-				//auto h = hard();
-				//h.run();
-				Menu::~Menu();
+				m_window.close();
+				auto g = Game(2);
+				g.run();
 			}
 		}
 		else
