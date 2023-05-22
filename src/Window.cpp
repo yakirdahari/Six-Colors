@@ -161,7 +161,6 @@ void Window::handleMouseClick(int x, int y, std::shared_ptr<Player> player,
         if (button->getGlobalBounds().contains(x, y) &&
             button->getFillColor() != player->chosenColor() &&
             button->getFillColor() != computer->chosenColor()) {
-            player->setChosenColor(button->getFillColor());
             player->pickColor(button->getFillColor(), graph);
             waitingForPlayer = false;
             break;

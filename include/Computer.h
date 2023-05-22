@@ -3,6 +3,7 @@
 #include "Graph.h"
 #include "Shape.h"
 #include "Easy.h"
+#include "Medium.h"
 
 class Computer
 {

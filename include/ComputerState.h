@@ -16,6 +16,7 @@ public:
 	virtual void setChosenColor(const sf::Color& color);
 	virtual float areaControlled() const;		// how much area player controls
 	virtual sf::Color chosenColor() const;
+	virtual std::unordered_set<std::shared_ptr<Shape>> paintedEdges() const;
 
 	/*--------------------------------*\
    |------------ DESTRUCTOR ------------|

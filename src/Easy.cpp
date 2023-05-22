@@ -4,7 +4,7 @@ void Easy::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>> 
 {
 	// get stuff ready for DFS
 	pickRandomColor(playerColor);
-	graph->resetVisited();
+	//graph->resetVisited();
 
 	// paint owned edges
 	for (auto& edge : m_paintedEdges)

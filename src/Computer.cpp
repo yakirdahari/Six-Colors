@@ -6,6 +6,9 @@ Computer::Computer(const int& difficulty)
 	{
 	case 1:
 		m_state = std::make_shared<Easy>();
+		break;
+	case 2:
+		m_state = std::make_shared<Medium>();
 	}
 }
 

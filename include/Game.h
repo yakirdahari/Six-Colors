@@ -55,13 +55,4 @@ private:
 
 	void generateBoard();	// create a graph by width and height
 	void link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons);
-	// belong to window
-	// void handleEvents();
-	// void updateInfo();         // refreshes counters
-	// void initInfo();	// Creates the information line
-	// sf::Font infoFont;
-	// sf::Text level;
-	// sf::Text playerScore;
-	// sf::Text computerScore;
-
 };
