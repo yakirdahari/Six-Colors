@@ -6,8 +6,6 @@
 #include <unordered_map>
 #include <memory>
 #include <SFML/Graphics/Color.hpp>
-#include <chrono>
-#include <thread>
 
 template <typename T>
 class Graph {
@@ -95,6 +93,7 @@ public:
         }
     }
 
+    // return graph's neighbours with the same color
     std::unordered_set<std::shared_ptr<T>> DFS(const std::shared_ptr<T>& v, const sf::Color& targetColor)
     {
         std::unordered_set<std::shared_ptr<T>> neighbours;

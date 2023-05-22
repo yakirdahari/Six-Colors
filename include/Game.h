@@ -37,7 +37,7 @@ public:
 	enum WindowSize
 	{
 		windowWidth = 402,
-		windowHeight = 550,
+		windowHeight = 428,
 	};
 
 	/*--------------------------------*\

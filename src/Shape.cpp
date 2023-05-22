@@ -34,21 +34,11 @@ void Shape::draw(sf::RenderWindow& window) const
 
 void Shape::randomColor()
 {
-    // list of available colors
-    std::vector<sf::Color> colors = {
-        sf::Color::Red,
-        sf::Color(255, 165, 0), // Orange
-        sf::Color::Yellow,
-        sf::Color::Green,
-        sf::Color::Blue,
-        sf::Color::Magenta
-    };
-
     // pick a random color
-    int random = rand() % colors.size();
+    int random = rand() % m_colors().size();
 
     // set the shape's color
-    m_sp.setFillColor(colors[random]);
+    m_sp.setFillColor(m_colors[random]);
 }
 
 const int& Shape::vertices()

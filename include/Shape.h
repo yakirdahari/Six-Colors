@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <cstdlib>
+#include "Colors.h"
 
 class Shape
 {
@@ -35,4 +36,5 @@ public:
 protected:
 	sf::CircleShape m_sp;
 	const int& m_vertices;
+	Colors m_colors{};
 };

@@ -27,7 +27,7 @@ void Game::generateBoard()
 {
     // 2d vector used
     std::vector<std::vector<std::shared_ptr<Shape>>> hexagons(graphHeight, std::vector<std::shared_ptr<Shape>>(graphWidth));
-    int offset;
+    float offset;
 
     // create hexagons and add them to the graph
     for (int i = 0; i < graphHeight; i++)

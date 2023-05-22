@@ -22,7 +22,6 @@ void Player::pickColor(const sf::Color color, std::shared_ptr<Graph<Shape>> grap
 	// update control
 	float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());
 	setControl(newControl);
-	std::cout << "player: " << areaControlled() << std::endl;
 }
 
 void Player::setControl(float amount)
