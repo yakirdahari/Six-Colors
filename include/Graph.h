@@ -111,6 +111,9 @@ public:
                 
             }
         }
+
+        visited[v] = false;
+
         return neighbours;
     }
 

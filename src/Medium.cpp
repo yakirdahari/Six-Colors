@@ -21,7 +21,6 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
         {
             edge->setColor(chosenColor());
         }
-
         // Perform DFS to get all neighbors with the chosen color
         m_paintedEdges = graph->DFS(m_startingPoint, chosenColor(), visited);
 
