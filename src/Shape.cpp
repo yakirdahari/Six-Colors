@@ -56,20 +56,20 @@ float Shape::getHeight() const
     return m_sp.getRadius() * 2.0f;
 }
 
-void Shape::thick(std::vector<sf::CircleShape> m_groupOfHexagon)
+void Shape::thick(std::vector<Shape> m_groupOfHexagon)
 {
     for (int i = 0; i < m_groupOfHexagon.size(); i++)
     {
-        m_groupOfHexagon[i].setOutlineColor(sf::Color::White);
-        m_groupOfHexagon[i].setOutlineThickness(1);
+        m_groupOfHexagon[i].m_sp.setOutlineColor(sf::Color::White);
+        m_groupOfHexagon[i].m_sp.setOutlineThickness(1);
     }
 }
 
-void Shape::thin(std::vector<sf::CircleShape> m_groupOfHexagon)
+void Shape::thin(std::vector<Shape> m_groupOfHexagon)
 {
     for (int i = 0; i < m_groupOfHexagon.size(); i++)
     {
-        m_groupOfHexagon[i].setOutlineColor(sf::Color::Black);
-        m_groupOfHexagon[i].setOutlineThickness(0.5);
+        m_groupOfHexagon[i].m_sp.setOutlineColor(sf::Color::Black);
+        m_groupOfHexagon[i].m_sp.setOutlineThickness(0.5);
     }
 }

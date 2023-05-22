@@ -18,6 +18,7 @@ void Game::run()
         {
             // player's turn
             m_window->run(m_graph, m_player, m_computer);
+            auto playerEdges = m_player->paintedEdges();
 
             // computer's turn
             m_computer->pickColor(m_player->chosenColor(), m_graph);

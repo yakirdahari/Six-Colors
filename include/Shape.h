@@ -28,8 +28,8 @@ public:
 	virtual float getWidth() const;
 	virtual float getHeight() const;
 
-	void thick(std::vector<sf::CircleShape> m_groupOfHexagon);
-	void thin(std::vector<sf::CircleShape> m_groupOfHexagon);
+	void thick(std::vector<Shape> m_groupOfHexagon);
+	void thin(std::vector<Shape> m_groupOfHexagon);
 
 	/*--------------------------------*\
    |------------ DESTRUCTOR ------------|

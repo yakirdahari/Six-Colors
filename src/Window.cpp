@@ -116,6 +116,8 @@ void Window::processEvents(std::shared_ptr<Player> player,
     sf::Event event;
 
     sf::Vector2f mousePos;
+    mousePos.x = (float)(sf::Mouse::getPosition(*m_window).x);
+    mousePos.y = (float)(sf::Mouse::getPosition(*m_window).y);
 
     while (m_window->pollEvent(event))
     {
@@ -129,8 +131,7 @@ void Window::processEvents(std::shared_ptr<Player> player,
             handleMouseClick(x, y, player, graph, computer);
         }
 
-        mousePos.x = (float)(sf::Mouse::getPosition(*m_window).x);
-        mousePos.y = (float)(sf::Mouse::getPosition(*m_window).y);
+
 
         if (m_new.getGlobalBounds().contains(mousePos))
         {
