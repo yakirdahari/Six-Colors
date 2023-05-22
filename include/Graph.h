@@ -75,12 +75,9 @@ public:
     // randomize the colors of every edge in the graph
     void randomizeColors()
     {
-        for (int i = 0; i < 10; i++)
+        for (auto& edge : m_edges)
         {
-            for (auto& edge : m_edges)
-            {
-                edge.first->randomColor();
-            }
+            edge.first->randomColor();
         }
     }
 
@@ -99,12 +96,14 @@ public:
         std::unordered_set<std::shared_ptr<T>> neighbours;
 
         // check if already visited this edge
-        if (m_visited[v]) {
+        if (m_visited[v])
+        {
             return neighbours;  // Node already visited, return empty vector
         }
 
         // check if this edge has the target color
-        if (v->getColor() == targetColor) {
+        if (v->getColor() == targetColor)
+        {
             neighbours.insert(v);
         }
         else
@@ -114,7 +113,8 @@ public:
 
         m_visited[v] = true;
 
-        for (const auto& edge : m_edges[v]) {
+        for (const auto& edge : m_edges[v])
+        {
             auto edgeNeighbours = DFS(edge, targetColor);
             neighbours.insert(edgeNeighbours.begin(), edgeNeighbours.end());
         }

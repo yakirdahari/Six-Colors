@@ -25,3 +25,8 @@ sf::Color ComputerState::chosenColor() const
 {
 	return m_currentColor;
 }
+
+std::unordered_set<std::shared_ptr<Shape>> ComputerState::paintedEdges() const
+{
+	return m_paintedEdges;
+}

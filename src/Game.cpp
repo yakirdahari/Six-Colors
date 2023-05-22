@@ -27,7 +27,6 @@ void Game::run()
     {
         std::cout << "error: " << e.what() << std::endl;
     }
-    
 }
 
 Game::~Game()
@@ -36,7 +35,7 @@ Game::~Game()
 
 void Game::generateBoard()
 {
-    // 2d vector helps us link neighbours
+    // 2d vector helps link the hexagons
     std::vector<std::vector<std::shared_ptr<Shape>>> hexagons(graphHeight, std::vector<std::shared_ptr<Shape>>(graphWidth));
     float offset;
 
@@ -75,8 +74,20 @@ void Game::generateBoard()
 
     // starting points for player and computer
     m_player->setStartingPoint(hexagons[graphHeight - 1][0]);
-    m_computer->setStartingPoint(hexagons[0][graphWidth-2]);
-    m_computer->setChosenColor(hexagons[0][graphWidth - 2]->getColor());
+    if (graphHeight % 2 == 1)
+    {
+        m_computer->setStartingPoint(hexagons[0][graphWidth -2]);
+        m_computer->setChosenColor(hexagons[0][graphWidth -2]->getColor());
+    }
+    else
+    {
+        m_computer->setStartingPoint(hexagons[0][graphWidth - 1]);
+        m_computer->setChosenColor(hexagons[0][graphWidth - 1]->getColor());
+    }
+    // initialise control of area
+    float startingControl = 1.f / m_graph->getEdges().size();
+    m_player->setControl(startingControl);
+    m_computer->setControl(startingControl);
 }
 
 void Game::link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons)

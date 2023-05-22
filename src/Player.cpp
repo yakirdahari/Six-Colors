@@ -1,15 +1,16 @@
 #include "Player.h"
 
-Player::Player() : m_control(0)
+Player::Player() : m_control(0.f)
 {
 }
 
 void Player::pickColor(const sf::Color color, std::shared_ptr<Graph<Shape>> graph)
 {
 	// get stuff ready for DFS
+	setChosenColor(color);
 	m_startingPoint->setColor(color);
 	graph->resetVisited();
-	
+
 	// paint owned edges
 	for (auto& edge : m_paintedEdges)
 	{
@@ -38,6 +39,11 @@ void Player::setStartingPoint(const std::shared_ptr<Shape>& edge)
 void Player::setChosenColor(const sf::Color& color)
 {
 	m_currentColor = color;
+}
+
+std::unordered_set<std::shared_ptr<Shape>> Player::paintedEdges()
+{
+	return m_paintedEdges;
 }
 
 float Player::areaControlled()
