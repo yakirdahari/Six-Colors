@@ -12,7 +12,7 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
     {
         // Prepare for DFS
         setChosenColor(*color);
-        graph->resetVisited();
+        auto visited = graph->getVisited();
 
         std::unordered_set<std::shared_ptr<Shape>> oldPaintedEdges = m_paintedEdges;
 
@@ -23,7 +23,7 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
         }
 
         // Perform DFS to get all neighbors with the chosen color
-        m_paintedEdges = graph->DFS(m_startingPoint, chosenColor());
+        m_paintedEdges = graph->DFS(m_startingPoint, chosenColor(), visited);
 
         int sizeIncrease = m_paintedEdges.size() - oldPaintedEdges.size();
 
