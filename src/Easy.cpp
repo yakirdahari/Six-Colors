@@ -25,8 +25,8 @@ void Easy::pickRandomColor(sf::Color playerColor)
 	int random = rand() % m_colors().size();
 
 	// color can't match the player's and computer's color
-	while (m_colors[random] != chosenColor() &&
-		   m_colors[random] != playerColor)
+	while (m_colors[random] == chosenColor() ||
+		   m_colors[random] == playerColor)
 	{
 		random = rand() % m_colors().size();
 	}
