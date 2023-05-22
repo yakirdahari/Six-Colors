@@ -82,25 +82,22 @@ public:
     }
 
     // need a clean visited map for every DFS run
-    void resetVisited()
+    std::unordered_map<std::shared_ptr<T>, bool> getVisited()
     {
-        for (const auto& node : m_edges)
-        {
-            m_visited[node.first] = false;
-        }
+        return m_visited;
     }
 
     // return graph's neighbours with the same color
-    std::unordered_set<std::shared_ptr<T>> DFS(const std::shared_ptr<T>& v, const sf::Color& targetColor)
+    std::unordered_set<std::shared_ptr<T>> DFS(const std::shared_ptr<T>& v, const sf::Color& targetColor, std::unordered_map<std::shared_ptr<T>, bool>& visited)
     {
         std::unordered_set<std::shared_ptr<T>> neighbours;
 
         // check if already visited this edge
-        if (m_visited[v] || v->getColor() != targetColor)
+        if (visited[v] || v->getColor() != targetColor)
         {
             return neighbours;  // Node already visited, return empty vector
         }
-        m_visited[v] = true;
+        visited[v] = true;
 
         // check if this edge has the target color
         if (v->getColor() == targetColor)
@@ -109,7 +106,7 @@ public:
 
             for (const auto& edge : m_edges[v])
             {
-                auto edgeNeighbours = DFS(edge, targetColor);
+                auto edgeNeighbours = DFS(edge, targetColor, visited);
                 neighbours.insert(edgeNeighbours.begin(), edgeNeighbours.end());
                 
             }
