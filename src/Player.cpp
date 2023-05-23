@@ -10,6 +10,7 @@ void Player::pickColor(const sf::Color color, std::shared_ptr<Graph<Shape>> grap
 	setChosenColor(color);
 	m_startingPoint->setColor(color);
 	auto visited = graph->getVisited();
+	//std::unordered_set<std::shared_ptr<Shape>> neighbours;
 
 	// paint owned edges
 	for (auto& edge : m_paintedEdges)
@@ -18,7 +19,7 @@ void Player::pickColor(const sf::Color color, std::shared_ptr<Graph<Shape>> grap
 	}
 
 	// use DFS to get all neighbours with identical color
-	m_paintedEdges = graph->DFS(m_startingPoint, color, visited);
+	graph->DFS(m_startingPoint, color, m_paintedEdges, visited);
 
 	// update control
 	float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());
@@ -33,6 +34,7 @@ void Player::setControl(const float& amount)
 void Player::setStartingPoint(const std::shared_ptr<Shape>& edge)
 {
 	m_startingPoint = edge;
+	m_paintedEdges.insert(edge);
 }
 
 void Player::setChosenColor(const sf::Color& color)

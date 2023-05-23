@@ -8,11 +8,11 @@ void ComputerState::setControl(const float& amount)
 void ComputerState::setStartingPoint(const std::shared_ptr<Shape>& edge)
 {
 	m_startingPoint = edge;
+	m_paintedEdges.insert(edge);
 }
 
 void ComputerState::setChosenColor(const sf::Color& color)
 {
-	m_startingPoint->setColor(color);
 	m_currentColor = color;
 }
 

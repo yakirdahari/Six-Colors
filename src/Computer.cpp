@@ -32,6 +32,11 @@ void Computer::setChosenColor(const sf::Color& color)
 	m_state->setChosenColor(color);
 }
 
+std::unordered_set<std::shared_ptr<Shape>> Computer::paintedEdges()
+{
+	return m_state->paintedEdges();
+}
+
 float Computer::areaControlled() const
 {
 	return m_state->areaControlled();
