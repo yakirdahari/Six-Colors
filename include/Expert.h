@@ -10,6 +10,7 @@ public:
 	void checkAvailableColors(const sf::Color playerColor);
 private:
 	std::vector<std::shared_ptr<sf::Color>> m_availableColors;
+	std::unordered_set<std::shared_ptr<Shape>> highestSize;
 	sf::Color bestChoice;
 	sf::Color maxColor;
 };

@@ -3,7 +3,6 @@
 void Expert::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>> graph)
 {
     auto maxGain = 0;
-    auto totalGain = 0;
 
     checkAvailableColors(playerColor);
     auto firstTurn = m_availableColors;
@@ -21,11 +20,11 @@ void Expert::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
         }
 
         // check colors after picking first color (neighbours of neighbours)
-        totalGain += checkGain(playerColor, graph);
+        auto gain = checkGain(playerColor, graph);
 
-        if (totalGain > maxGain)
+        if (gain > maxGain)
         {
-            maxGain = totalGain;
+            maxGain = gain;
             bestChoice = *firstColor;
         }
 
@@ -37,43 +36,36 @@ void Expert::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
             edge->setColor(originalColor);
         }
         m_paintedEdges = original;
-        std::cout << totalGain << std::endl;
-        totalGain = 0;
     }
-    // prepare for DFS
-    auto visited = graph->getVisited();
-    setChosenColor(bestChoice); 
 
-    /*for (auto& edge : m_paintedEdges)
-    {
-        edge->setColor(bestChoice);
-    }*/
-
-    // perform DFS to get all neighbors with the chosen color
-    graph->DFS(m_startingPoint, bestChoice, m_paintedEdges, visited);
+    setChosenColor(bestChoice);
 
     for (auto& edge : m_paintedEdges)
     {
         edge->setColor(bestChoice);
     }
-    //auto choice = checkGain(playerColor, graph);
-    
-    //std::cout << totalGain << std::endl;
+
+    // check colors after picking first color (neighbours of neighbours)
+    auto choice = checkGain(playerColor, graph);
+
+    m_paintedEdges = highestSize;
+    setChosenColor(maxColor); 
+
+    for (auto& edge : m_paintedEdges)
+    {
+        edge->setColor(maxColor);
+    }
 
     // Update control
     float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());
     setControl(newControl);
 }
 
-
-
-
 int Expert::checkGain(const sf::Color playerColor, std::shared_ptr<Graph<Shape>> graph)
 {
     checkAvailableColors(playerColor);
 
-    int maxSizeIncrease = 0;
-    std::unordered_set<std::shared_ptr<Shape>> highestSize;
+    int maxSize = 0;
 
     for (const auto& color : m_availableColors)
     {
@@ -92,22 +84,17 @@ int Expert::checkGain(const sf::Color playerColor, std::shared_ptr<Graph<Shape>>
 
         int sizeIncrease = newSize.size() - m_paintedEdges.size();
 
-        if (sizeIncrease > maxSizeIncrease)
+        std::cout << "size increase: " << sizeIncrease << std::endl;
+
+        if (newSize.size() > maxSize)
         {
-            maxSizeIncrease = sizeIncrease;
+            maxSize = newSize.size();
             maxColor = *color;
             highestSize = newSize;
         }
     }
-    //m_paintedEdges = highestSize;
-    //setChosenColor(maxColor); 
 
-    /*for (auto& edge : m_paintedEdges)
-    {
-        edge->setColor(maxColor);
-    }*/
-
-    return maxSizeIncrease;
+    return maxSize;
 }
 
 void Expert::checkAvailableColors(const sf::Color playerColor)
