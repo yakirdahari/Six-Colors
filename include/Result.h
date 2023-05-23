@@ -1,13 +1,14 @@
 #pragma once
 
+#include "Menu.h"
 #include "Game.h"
 
-class Loss
+class Result
 {
 public:
 	// constractor & destractor
-	Loss(float score);
-	~Loss();
+	Result(float score);
+	~Result();
 
 	//public functions
 	void run();

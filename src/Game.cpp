@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Result.h"
 
 Game::Game(const int& difficulty) : m_player(std::make_shared<Player>()),
                                     m_computer(std::make_shared<Computer>(difficulty)), 
@@ -19,16 +20,16 @@ void Game::run()
         {
             // player's turn
             edges = m_player->paintedEdges();
-            White(edges);
+            //White(edges);
             m_window->run(m_graph, m_player, m_computer);
             //edges = m_player->paintedEdges();
             //White(edges);
-            Black(edges);
+            //Black(edges);
 
-            if (m_player->areaControlled() > 0.050)
+            if (m_player->areaControlled() > 0.5)
             {
                 m_window->~Window();
-                auto e = Loss(m_player->areaControlled());
+                auto e = Result(m_player->areaControlled());
                 e.run();
             }
             
@@ -37,16 +38,16 @@ void Game::run()
 
             // computer's turn
             edges = m_computer->paintedEdges();
-            White(edges);
+            //White(edges);
             m_computer->pickColor(m_player->chosenColor(), m_graph);
             edges = m_computer->paintedEdges();
-            White(edges);
-            Black(edges);
+            //White(edges);
+            //Black(edges);
 
-            if (m_computer->areaControlled() > 0.050)
+            if (m_computer->areaControlled() > 0.5)
             {
                 m_window->~Window();
-                auto e = Loss(m_player->areaControlled());
+                auto e = Result(m_player->areaControlled());
                 e.run();
             }
         }
@@ -59,6 +60,7 @@ void Game::run()
 
 Game::~Game()
 {
+    
 }
 
 void Game::generateBoard()

@@ -9,7 +9,6 @@
 #include "Player.h"
 #include "Computer.h"
 #include "Window.h"
-#include "Loss.h"
 
 class Game
 {
