@@ -52,6 +52,7 @@ void Result::updateEvents()
 		{
 		case sf::Event::Closed:
 			m_window.close();
+			exit(EXIT_SUCCESS);
 			break;
 		case sf::Event::KeyReleased:
 			if (event.key.code == sf::Keyboard::Escape)

@@ -123,7 +123,10 @@ void Window::processEvents(std::shared_ptr<Player> player,
     while (m_window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
+        {
             m_window->close();
+            exit(EXIT_SUCCESS);
+        }
         else if (event.type == sf::Event::MouseButtonPressed &&
                  event.mouseButton.button == sf::Mouse::Left)
         {

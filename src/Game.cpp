@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Result.h"
+#include <chrono>
+#include <thread>
 
 Game::Game(const int& difficulty) : m_player(std::make_shared<Player>()),
                                     m_computer(std::make_shared<Computer>(difficulty)), 
@@ -19,13 +21,10 @@ void Game::run()
             (m_player->areaControlled() < 0.50 && m_computer->areaControlled() < 0.50))
         {
             // player's turn
-            edges = m_player->paintedEdges();
-            //White(edges);
-            m_window->run(m_graph, m_player, m_computer);
-            //edges = m_player->paintedEdges();
-            //White(edges);
-            //Black(edges);
+            //m_window->run(m_graph, m_player, m_computer);
+            //m_computer->pickColor(m_player->chosenColor(), m_graph);
 
+            playerTurn();
             if (m_player->areaControlled() > 0.5)
             {
                 m_window->~Window();
@@ -35,17 +34,7 @@ void Game::run()
             
             
             // player's turn  
-            playerTurn();
             computerTurn();
-
-            // computer's turn
-            edges = m_computer->paintedEdges();
-            //White(edges);
-            m_computer->pickColor(m_player->chosenColor(), m_graph);
-            edges = m_computer->paintedEdges();
-            //White(edges);
-            //Black(edges);
-
             if (m_computer->areaControlled() > 0.5)
             {
                 m_window->~Window();
