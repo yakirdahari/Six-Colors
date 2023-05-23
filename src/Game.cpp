@@ -32,6 +32,9 @@ void Game::run()
                 e.run();
             }
             
+            
+            computerTurn();
+
             // computer's turn
             edges = m_computer->paintedEdges();
             White(edges);
@@ -154,21 +157,34 @@ void Game::link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons)
     }
 }
 
-void Game::White(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon)
+void Game::playerTurn()
 {
-    for (auto& hexagon : m_groupOfHexagon)
+    auto playerEdges = m_player->paintedEdges();
+    auto computerEdges = m_computer->paintedEdges();
+
+    for (auto& edge : playerEdges)
     {
-        hexagon->thick();
+        edge->thick();
+    }
+    for (auto& edge : computerEdges)
+    {
+        edge->thin();
     }
 }
 
-void Game::Black(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon)
+void Game::computerTurn()
 {
-    for (auto& hexagon : m_groupOfHexagon)
+    auto playerEdges = m_player->paintedEdges();
+    auto computerEdges = m_computer->paintedEdges();
+
+    for (auto& edge : computerEdges)
     {
-        hexagon->thin();
+        edge->thick();
+    }
+    for (auto& edge : playerEdges)
+    {
+        edge->thin();
     }
 }
-
 
 

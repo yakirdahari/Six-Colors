@@ -2,17 +2,19 @@
 
 void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>> graph)
 {
-    checkAvaiableColors(playerColor);
+    checkAvailableColors(playerColor);
 
     int maxSizeIncrease = 0;
+    std::unordered_set<std::shared_ptr<Shape>> highestSize;
     sf::Color maxColor;
 
     for (const auto& color : m_availableColors)
     {
-        // Prepare for DFS
+        // prepare for DFS
         auto visited = graph->getVisited();
         std::unordered_set<std::shared_ptr<Shape>> newSize = m_paintedEdges;
-        // Paint owned edges
+
+        // paint owned edges
         for (auto& edge : m_paintedEdges)
         {
             edge->setColor(*color);
@@ -22,16 +24,17 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
         graph->DFS(m_startingPoint, *color, newSize, visited);
 
         int sizeIncrease = newSize.size() - m_paintedEdges.size();
-        std::cout << sizeIncrease << std::endl;
 
         if (sizeIncrease > maxSizeIncrease)
         {
             maxSizeIncrease = sizeIncrease;
             maxColor = *color;
-            m_paintedEdges = newSize;
+            highestSize = newSize;
         }
-        /*newSize.clear();*/
     }
+    m_paintedEdges = highestSize;
+    setChosenColor(maxColor);
+
     for (auto& edge : m_paintedEdges)
     {
         edge->setColor(maxColor);
@@ -43,7 +46,7 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
 
 }
 
-void Medium::checkAvaiableColors(const sf::Color playerColor)
+void Medium::checkAvailableColors(const sf::Color playerColor)
 {
 	m_availableColors.clear();
 
