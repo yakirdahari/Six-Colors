@@ -1,4 +1,6 @@
 #include "Game.h"
+#include <chrono>
+#include <thread>
 
 Game::Game(const int& difficulty) : m_player(std::make_shared<Player>()),
                                     m_computer(std::make_shared<Computer>(difficulty)), 
@@ -18,13 +20,7 @@ void Game::run()
         {
             // player's turn  
             playerTurn();
-
-            m_window->run(m_graph, m_player, m_computer);
-            
             computerTurn();
-
-            // computer's turn
-            m_computer->pickColor(m_player->chosenColor(), m_graph);
         }
     }
     catch (std::exception& e)
@@ -146,6 +142,7 @@ void Game::playerTurn()
     {
         edge->thin();
     }
+    m_window->run(m_graph, m_player, m_computer);
 }
 
 void Game::computerTurn()
@@ -161,6 +158,10 @@ void Game::computerTurn()
     {
         edge->thin();
     }
+    m_computer->pickColor(m_player->chosenColor(), m_graph);
+    m_window->render(m_graph);
+    // Add a delay to observe the color change
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 

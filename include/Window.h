@@ -16,6 +16,7 @@ public:
              std::shared_ptr<Computer> computer);
     
     bool isOpen();
+    void render(std::shared_ptr<Graph<Shape>> graph);
 
 private:
     std::shared_ptr <sf::RenderWindow> m_window;
@@ -37,7 +38,6 @@ private:
                           std::shared_ptr<Graph<Shape>> graph,
                           std::shared_ptr<Computer> computer);
     void update(std::shared_ptr<Player> player, std::shared_ptr<Computer> computer);
-    void render(std::shared_ptr<Graph<Shape>> graph);
 
     // info
     sf::Font m_font;
