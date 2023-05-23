@@ -25,12 +25,12 @@ void Game::run()
             //White(edges);
             Black(edges);
 
-            /*if (m_player->areaControlled() > 0.050)
+            if (m_player->areaControlled() > 0.050)
             {
                 m_window->~Window();
                 auto e = Loss(m_player->areaControlled());
                 e.run();
-            }*/
+            }
             
             // computer's turn
             edges = m_computer->paintedEdges();
