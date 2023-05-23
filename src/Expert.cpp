@@ -11,6 +11,7 @@ void Expert::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
     for (auto firstColor : firstTurn)
     {
         auto original = m_paintedEdges;
+
         // pick first color
         setChosenColor(*firstColor);
 
@@ -56,7 +57,7 @@ void Expert::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
         edge->setColor(maxColor);
     }
 
-    // Update control
+    // update control
     float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());
     setControl(newControl);
 }
