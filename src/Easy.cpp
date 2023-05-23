@@ -6,6 +6,7 @@ void Easy::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>> 
 	pickRandomColor(playerColor);
 	auto visited = graph->getVisited();
 
+
 	// paint owned edges
 	for (auto& edge : m_paintedEdges)
 	{
@@ -13,7 +14,7 @@ void Easy::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>> 
 	}
 
 	// use DFS to get all neighbours with identical color
-	m_paintedEdges = graph->DFS(m_startingPoint, chosenColor(), visited);
+	graph->DFS(m_startingPoint, chosenColor(), m_paintedEdges, visited);
 
 	// update control
 	float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());

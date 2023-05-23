@@ -6,42 +6,35 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
 
     int maxSizeIncrease = 0;
     sf::Color maxColor;
-    std::unordered_set<std::shared_ptr<Shape>> maxPaintedEdges;
 
     for (const auto& color : m_availableColors)
     {
         // Prepare for DFS
-        setChosenColor(*color);
         auto visited = graph->getVisited();
-
-        std::unordered_set<std::shared_ptr<Shape>> oldPaintedEdges = m_paintedEdges;
-
+        std::unordered_set<std::shared_ptr<Shape>> newSize = m_paintedEdges;
         // Paint owned edges
         for (auto& edge : m_paintedEdges)
         {
-            edge->setColor(chosenColor());
+            edge->setColor(*color);
         }
-        // Perform DFS to get all neighbors with the chosen color
-        m_paintedEdges = graph->DFS(m_startingPoint, chosenColor(), visited);
 
-        int sizeIncrease = m_paintedEdges.size() - oldPaintedEdges.size();
+        // Perform DFS to get all neighbors with the chosen color
+        graph->DFS(m_startingPoint, *color, newSize, visited);
+
+        int sizeIncrease = newSize.size() - m_paintedEdges.size();
+        std::cout << sizeIncrease << std::endl;
 
         if (sizeIncrease > maxSizeIncrease)
         {
             maxSizeIncrease = sizeIncrease;
-            maxColor = chosenColor();
-            maxPaintedEdges = m_paintedEdges;
+            maxColor = *color;
+            m_paintedEdges = newSize;
         }
-
-        // Revert m_paintedEdges back
-        m_paintedEdges = oldPaintedEdges;
+        /*newSize.clear();*/
     }
-
-    // Set the chosen color to the one with the largest size increase
-    m_paintedEdges = maxPaintedEdges;
     for (auto& edge : m_paintedEdges)
     {
-        edge->setColor(chosenColor());
+        edge->setColor(maxColor);
     }
 
     // Update control

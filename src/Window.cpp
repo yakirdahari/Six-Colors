@@ -116,8 +116,6 @@ void Window::processEvents(std::shared_ptr<Player> player,
     sf::Event event;
 
     sf::Vector2f mousePos;
-    mousePos.x = (float)(sf::Mouse::getPosition(*m_window).x);
-    mousePos.y = (float)(sf::Mouse::getPosition(*m_window).y);
 
     while (m_window->pollEvent(event))
     {
@@ -130,28 +128,7 @@ void Window::processEvents(std::shared_ptr<Player> player,
             int y = event.mouseButton.y;
             handleMouseClick(x, y, player, graph, computer);
         }
-
-
-
-        if (m_new.getGlobalBounds().contains(mousePos))
-        {
-            m_new.setCharacterSize(50);
-            m_new.setOutlineThickness(3);
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            {
-                m_window->close();
-                auto m = Menu();
-                m.run();
-            }
-        }
-        else
-        {
-            m_new.setCharacterSize(34);
-            m_new.setOutlineThickness(0);
-        }
     }
-
-
 }
 
 void Window::handleMouseClick(int x, int y, std::shared_ptr<Player> player,
@@ -166,6 +143,12 @@ void Window::handleMouseClick(int x, int y, std::shared_ptr<Player> player,
             waitingForPlayer = false;
             break;
         }
+    }
+    if (m_new.getGlobalBounds().contains(x, y))
+    {
+        m_window->close();
+        auto m = Menu();
+        m.run();
     }
 }
 
