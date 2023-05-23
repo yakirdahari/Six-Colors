@@ -20,10 +20,6 @@ void Game::run()
         while (m_window->isOpen() &&
             (m_player->areaControlled() < 0.50 && m_computer->areaControlled() < 0.50))
         {
-            // player's turn
-            //m_window->run(m_graph, m_player, m_computer);
-            //m_computer->pickColor(m_player->chosenColor(), m_graph);
-
             playerTurn();
             if (m_player->areaControlled() > 0.5)
             {
@@ -31,7 +27,6 @@ void Game::run()
                 auto e = Result(m_player->areaControlled());
                 e.run();
             }
-            
             
             // player's turn  
             computerTurn();
@@ -181,7 +176,8 @@ void Game::computerTurn()
     }
     m_computer->pickColor(m_player->chosenColor(), m_graph);
     m_window->render(m_graph);
-    // Add a delay to observe the color change
+
+    // add a delay to observe the color change
     std::this_thread::sleep_for(std::chrono::milliseconds(900));
 }
 

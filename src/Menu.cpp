@@ -12,8 +12,6 @@ Menu::Menu()
 
 Menu::~Menu()
 {
-	//auto hard = hard();
-	//hard.run(m_window);
 }
 
 
@@ -127,7 +125,6 @@ void Menu::initTitle()
 	title.setString("6 COLORS");
 	title.setFont(titleFont);
 	title.setCharacterSize(80);
-	//title.setFillColor(sf::Color(0, 183, 183));
 	title.setFillColor(sf::Color::White);
 	title.setOutlineColor(sf::Color::Black);
 	title.setOutlineThickness(7);
@@ -143,7 +140,6 @@ void Menu::initButtons()
 	easy.setString("EASY");
 	easy.setFont(buttonsFont);
 	easy.setFillColor(sf::Color::Yellow);
-	//easy.setFillColor(sf::Color(244, 189, 0));
 	easy.setOutlineColor(sf::Color::Black);
 	easy.setOutlineThickness(3);
 	easy.setCharacterSize(40);
@@ -153,7 +149,6 @@ void Menu::initButtons()
 	hard.setString("HARD");
 	hard.setFont(buttonsFont);
 	hard.setFillColor(sf::Color(255, 150, 22));
-	//hard.setFillColor(sf::Color(255, 66, 128));
 	hard.setOutlineColor(sf::Color::Black);
 	hard.setOutlineThickness(3);
 	hard.setCharacterSize(40);

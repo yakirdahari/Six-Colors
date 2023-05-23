@@ -20,7 +20,7 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
             edge->setColor(*color);
         }
 
-        // Perform DFS to get all neighbors with the chosen color
+        // perform DFS to get all neighbors with the chosen color
         graph->DFS(m_startingPoint, *color, newSize, visited);
 
         int sizeIncrease = newSize.size() - m_paintedEdges.size();
@@ -40,7 +40,7 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
         edge->setColor(maxColor);
     }
 
-    // Update control
+    // update control
     float newControl = static_cast<float>(m_paintedEdges.size()) / static_cast<float>(graph->getEdges().size());
     setControl(newControl);
 
