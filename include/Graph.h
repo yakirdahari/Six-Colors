@@ -23,15 +23,15 @@ public:
 
     std::shared_ptr<T> addEdge(std::shared_ptr<T> edge)
     {
-        // If it's the first edge, make it the root
+        // if it's the first edge, make it the root
         if (m_edges.empty())
         {
-            m_edges[edge] = {}; // Initialize edge's neighbour list
+            m_edges[edge] = {}; // initialize edge's neighbour list
             m_root = edge;
         }
         else
         {
-            m_edges[edge] = {}; // Initialize edge's neighbour list
+            m_edges[edge] = {}; // initialize edge's neighbour list
         }
 
         m_visited[edge] = false;
@@ -104,7 +104,6 @@ public:
         {
             DFS(edge, targetColor, neighbours, visited);
         }
-        //visited[v] = false;
 
         return;
     }
