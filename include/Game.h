@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Computer.h"
 #include "Window.h"
+#include "Loss.h"
 
 class Game
 {
@@ -55,6 +56,6 @@ private:
 
 	void generateBoard();	// create a graph by width and height
 	void link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons);
-	void playerTurn(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon);
-	void computerTurn(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon);
+	void White(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon);
+	void Black(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon);
 };

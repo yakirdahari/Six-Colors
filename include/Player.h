@@ -24,9 +24,9 @@ public:
 	std::unordered_set<std::shared_ptr<Shape>> paintedEdges();
 	float areaControlled();		// how much area player controls
 	sf::Color chosenColor();
+	std::unordered_set<std::shared_ptr<Shape>> m_paintedEdges;
 
 private:
-	std::unordered_set<std::shared_ptr<Shape>> m_paintedEdges;
 	sf::Color m_currentColor;
 	std::shared_ptr<Shape> m_startingPoint;
 	float m_control;

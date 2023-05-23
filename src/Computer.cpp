@@ -46,3 +46,4 @@ sf::Color Computer::chosenColor() const
 {
 	return m_state->chosenColor();
 }
+

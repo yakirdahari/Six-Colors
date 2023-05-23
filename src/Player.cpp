@@ -56,3 +56,4 @@ sf::Color Player::chosenColor()
 {
 	return m_currentColor;
 }
+

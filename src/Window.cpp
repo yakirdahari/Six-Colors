@@ -12,6 +12,11 @@ Window::Window(const float& width, const float& height) :
     initNewButton();
 }
 
+Window::~Window()
+{
+    m_window->close();
+}
+
 void Window::run(std::shared_ptr<Graph<Shape>> graph, std::shared_ptr<Player> player,
                  std::shared_ptr<Computer> computer)
 {
