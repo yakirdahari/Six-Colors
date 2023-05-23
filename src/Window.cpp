@@ -115,8 +115,6 @@ void Window::processEvents(std::shared_ptr<Player> player,
 {
     sf::Event event;
 
-    sf::Vector2f mousePos;
-
     while (m_window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
