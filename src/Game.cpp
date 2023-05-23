@@ -34,6 +34,8 @@ void Game::run()
             }
             
             
+            // player's turn  
+            playerTurn();
             computerTurn();
 
             // computer's turn
@@ -172,6 +174,7 @@ void Game::playerTurn()
     {
         edge->thin();
     }
+    m_window->run(m_graph, m_player, m_computer);
 }
 
 void Game::computerTurn()
@@ -187,6 +190,10 @@ void Game::computerTurn()
     {
         edge->thin();
     }
+    m_computer->pickColor(m_player->chosenColor(), m_graph);
+    m_window->render(m_graph);
+    // Add a delay to observe the color change
+    std::this_thread::sleep_for(std::chrono::milliseconds(900));
 }
 
 
