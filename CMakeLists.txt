@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.23)
 
 project (oop2_ex04)
-set (MY_AUTHORS "your_name_here")
+set (MY_AUTHORS "elinor_ribiyev-yakir_dahari")
 
 include (cmake/CompilerSettings.cmake)
 
