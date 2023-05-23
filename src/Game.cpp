@@ -161,7 +161,7 @@ void Game::computerTurn()
     m_computer->pickColor(m_player->chosenColor(), m_graph);
     m_window->render(m_graph);
     // Add a delay to observe the color change
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(900));
 }
 
 
