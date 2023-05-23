@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include <vector>
+#include <unordered_set>
 #include "Colors.h"
 
 class Shape
@@ -28,8 +29,9 @@ public:
 	virtual float getWidth() const;
 	virtual float getHeight() const;
 
-	void thick(std::vector<Shape> m_groupOfHexagon);
-	void thin(std::vector<Shape> m_groupOfHexagon);
+	
+	void thick();
+	void thin();
 
 	/*--------------------------------*\
    |------------ DESTRUCTOR ------------|
