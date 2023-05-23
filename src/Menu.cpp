@@ -108,6 +108,8 @@ void Menu::updateEvents()
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				m_window.close();
+				auto g = Game(3);
+				g.run();
 			}
 		}
 		else

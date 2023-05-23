@@ -4,6 +4,7 @@
 #include "Shape.h"
 #include "Easy.h"
 #include "Medium.h"
+#include "Expert.h"
 
 class Computer
 {

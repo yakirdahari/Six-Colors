@@ -16,15 +16,12 @@ void Game::run()
         while (m_window->isOpen() &&
             (m_player->areaControlled() < 0.50 && m_computer->areaControlled() < 0.50))
         {
-            // player's turn
-            auto playerEdges = m_player->paintedEdges();
-            playerTurn(playerEdges);
+            // player's turn  
+            playerTurn();
+
             m_window->run(m_graph, m_player, m_computer);
-            playerEdges = m_player->paintedEdges();
-            playerTurn(playerEdges);
-            //auto playerEdges = m_player->paintedEdges();
-            computerTurn(playerEdges);
             
+            computerTurn();
 
             // computer's turn
             m_computer->pickColor(m_player->chosenColor(), m_graph);
@@ -136,38 +133,34 @@ void Game::link(std::vector<std::vector<std::shared_ptr<Shape>>> hexagons)
     }
 }
 
-void Game::playerTurn(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon)
+void Game::playerTurn()
 {
-    for (auto& hexagon : m_groupOfHexagon)
+    auto playerEdges = m_player->paintedEdges();
+    auto computerEdges = m_computer->paintedEdges();
+
+    for (auto& edge : playerEdges)
     {
-        hexagon->thick();
+        edge->thick();
+    }
+    for (auto& edge : computerEdges)
+    {
+        edge->thin();
     }
 }
 
-void Game::computerTurn(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon)
+void Game::computerTurn()
 {
-    for (auto& hexagon : m_groupOfHexagon)
+    auto playerEdges = m_player->paintedEdges();
+    auto computerEdges = m_computer->paintedEdges();
+
+    for (auto& edge : computerEdges)
     {
-        hexagon->thin();
+        edge->thick();
+    }
+    for (auto& edge : playerEdges)
+    {
+        edge->thin();
     }
 }
-
-//void Shape::thick(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon)
-//{
-//    for (auto& hexagon : m_groupOfHexagon)
-//    {
-//        hexagon->m_sp.setOutlineColor(sf::Color::White);
-//        hexagon->m_sp.setOutlineThickness(1);
-//    }
-//}
-//
-//void Shape::thin(std::unordered_set<std::shared_ptr<Shape>> m_groupOfHexagon)
-//{
-//    for (auto& hexagon : m_groupOfHexagon)
-//    {
-//        hexagon->m_sp.setOutlineColor(sf::Color::Black);
-//        hexagon->m_sp.setOutlineThickness(0.5);
-//    }
-//}
 
 

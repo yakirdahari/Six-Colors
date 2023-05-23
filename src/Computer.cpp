@@ -9,6 +9,10 @@ Computer::Computer(const int& difficulty)
 		break;
 	case 2:
 		m_state = std::make_shared<Medium>();
+		break;
+	case 3:
+		m_state = std::make_shared<Expert>();
+		break;
 	}
 }
 

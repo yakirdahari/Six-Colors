@@ -2,7 +2,7 @@
 
 void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>> graph)
 {
-    checkAvaiableColors(playerColor);
+    checkAvailableColors(playerColor);
 
     int maxSizeIncrease = 0;
     std::unordered_set<std::shared_ptr<Shape>> highestSize;
@@ -46,7 +46,7 @@ void Medium::pickColor(const sf::Color playerColor, std::shared_ptr<Graph<Shape>
 
 }
 
-void Medium::checkAvaiableColors(const sf::Color playerColor)
+void Medium::checkAvailableColors(const sf::Color playerColor)
 {
 	m_availableColors.clear();
 
